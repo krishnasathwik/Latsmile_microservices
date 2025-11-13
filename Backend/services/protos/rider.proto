@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package rider;
+
+service RiderService {
+  rpc GetRiderByEmail (RiderEmailRequest) returns (RiderResponse);
+  rpc UpdateRideStatus (RideStatusRequest) returns (RiderUpdateResponse);
+}
+
+message RiderEmailRequest {
+  string email = 1;
+}
+
+message RiderResponse {
+  string status = 1;
+  string message = 2;
+
+  string name = 3;
+  string email = 4;
+
+  string boardingStationName = 5;
+  double boardingLatitude = 6;
+  double boardingLongitude = 7;
+
+  string destinationStationName = 8;
+  double destinationLatitude = 9;
+  double destinationLongitude = 10;
+
+  string arrivalTime = 11;
+  string rideStatus = 12;
+}
+
+message RideStatusRequest {
+  string email = 1;
+  string status = 2;
+}
+
+message RiderUpdateResponse {
+  string status = 1;
+  string message = 2;
+}

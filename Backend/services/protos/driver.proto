@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+package driver;
+
+service DriverService {
+  rpc GetDriverByEmail (DriverEmailRequest) returns (DriverResponse);
+  rpc UpdateDriverLocation (DriverLocationUpdate) returns (DriverResponseSimple);
+  rpc GetAllDrivers (EmptyRequest) returns (DriverListResponse);
+}
+
+message EmptyRequest {}
+
+message DriverEmailRequest {
+  string email = 1;
+}
+
+message DriverLocationUpdate {
+  string email = 1;
+  double latitude = 2;
+  double longitude = 3;
+}
+
+message RoutePoint {
+  string place = 1;
+  double latitude = 2;
+  double longitude = 3;
+}
+
+message DriverResponse {
+  string status = 1;
+  string message = 2;
+
+  string name = 3;
+  string email = 4;
+
+  string carNumber = 5;
+  int32 totalSeats = 6;
+  int32 availableSeats = 7;
+
+  string statusText = 8;
+
+  repeated RoutePoint route = 9;
+}
+
+message DriverResponseSimple {
+  string status = 1;
+  string message = 2;
+}
+
+message DriverListResponse {
+  repeated DriverResponse drivers = 1;
+}

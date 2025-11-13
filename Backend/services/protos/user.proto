@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package user;
+
+service UserService {
+  rpc RegisterUser (UserRequest) returns (UserResponse);
+  rpc LoginUser (LoginRequest) returns (UserResponse);
+  rpc VerifyOtp (OtpVerifyRequest) returns (UserResponse);
+  rpc GetUserByEmail (EmailRequest) returns (UserResponse); // ✅ NEW RPC
+}
+
+message UserRequest {
+  string username = 1;
+  string email = 2;
+  string role = 3;
+}
+
+message LoginRequest {
+  string email = 1;
+}
+
+message OtpVerifyRequest {
+  string email = 1;
+  string otp = 2;
+}
+
+// ✅ New message for fetching user details
+message EmailRequest {
+  string email = 1;
+}
+
+message UserResponse {
+  string status = 1;
+  string message = 2;
+  string username = 3;
+  string email = 4;
+  string role = 5;
+}

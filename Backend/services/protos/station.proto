@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package station;
+
+service StationService {
+  rpc AddStation (StationRequest) returns (StationResponse);
+  rpc GetStations (Empty) returns (StationList);
+  rpc GetNearbyLocations (StationNameRequest) returns (NearbyLocationsResponse);
+  rpc GetLocationByName (StationNameRequest) returns (LocationResponse); // ✅ newly added
+}
+
+message StationRequest {
+  string name = 1;
+  double latitude = 2;
+  double longitude = 3;
+  repeated NearbyLocation nearbyLocations = 4;
+}
+
+message StationResponse {
+  string status = 1;
+  string message = 2;
+}
+
+message StationNameRequest {
+  string name = 1;
+}
+
+message StationList {
+  repeated StationRequest stations = 1;
+}
+
+message NearbyLocation {
+  string name = 1;
+  double latitude = 2;
+  double longitude = 3;
+}
+
+message NearbyLocationsResponse {
+  repeated NearbyLocation locations = 1;
+}
+
+// ✅ For GetLocationByName RPC
+message LocationResponse {
+  string name = 1;
+  double latitude = 2;
+  double longitude = 3;
+  string status = 4;
+  string message = 5;
+}
+
+message Empty {}

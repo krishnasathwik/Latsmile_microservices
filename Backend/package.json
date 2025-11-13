@@ -1,0 +1,21 @@
+{
+  "name": "lastmile-backend",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "services/*"
+  ],
+  "scripts": {
+    "start": "echo 'Run services individually (auth, station, etc.)'"
+  },
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "mongoose": "^8.19.3"
+  }
+}

@@ -1,0 +1,62 @@
+[
+  {
+    "name": "MG Road Metro Station",
+    "latitude": 12.9756,
+    "longitude": 77.6057,
+    "nearbyLocations": [
+      { "name": "Brigade Road", "latitude": 12.9732, "longitude": 77.609 },
+      { "name": "Church Street", "latitude": 12.9749, "longitude": 77.604 },
+      { "name": "Trinity Circle", "latitude": 12.9718, "longitude": 77.619 }
+    ]
+  },
+  {
+    "name": "Indiranagar Metro Station",
+    "latitude": 12.9784,
+    "longitude": 77.6408,
+    "nearbyLocations": [
+      { "name": "100 Feet Road", "latitude": 12.9791, "longitude": 77.639 },
+      { "name": "CMH Road", "latitude": 12.978, "longitude": 77.641 },
+      { "name": "Old Airport Road", "latitude": 12.96, "longitude": 77.65 }
+    ]
+  },
+  {
+    "name": "Baiyappanahalli Metro Station",
+    "latitude": 12.991,
+    "longitude": 77.6675,
+    "nearbyLocations": [
+      { "name": "Tin Factory", "latitude": 12.995, "longitude": 77.67 },
+      { "name": "KR Puram", "latitude": 13.009, "longitude": 77.68 },
+      { "name": "Old Madras Road", "latitude": 12.99, "longitude": 77.66 }
+    ]
+  },
+  {
+    "name": "Jayanagar Metro Station",
+    "latitude": 12.9304,
+    "longitude": 77.5836,
+    "nearbyLocations": [
+      { "name": "South End Circle", "latitude": 12.932, "longitude": 77.58 },
+      { "name": "RV Road", "latitude": 12.928, "longitude": 77.585 },
+      { "name": "Lalbagh West Gate", "latitude": 12.945, "longitude": 77.58 }
+    ]
+  },
+  {
+    "name": "Majestic Metro Station",
+    "latitude": 12.9783,
+    "longitude": 77.5722,
+    "nearbyLocations": [
+      { "name": "Kempegowda Bus Station", "latitude": 12.978, "longitude": 77.57 },
+      { "name": "City Railway Station", "latitude": 12.977, "longitude": 77.573 },
+      { "name": "Seshadripuram", "latitude": 12.987, "longitude": 77.57 }
+    ]
+  },
+  {
+    "name": "Yeshwanthpur Metro Station",
+    "latitude": 13.0186,
+    "longitude": 77.5563,
+    "nearbyLocations": [
+      { "name": "Orion Mall", "latitude": 13.015, "longitude": 77.55 },
+      { "name": "ISCON Temple", "latitude": 13.01, "longitude": 77.55 },
+      { "name": "Malleswaram", "latitude": 13.02, "longitude": 77.57 }
+    ]
+  }
+]

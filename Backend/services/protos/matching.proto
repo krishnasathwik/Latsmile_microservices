@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package matching;
+
+service MatchingService {
+  rpc MatchRider (MatchRequest) returns (MatchResponse);
+  rpc GetMatchByEmail (MatchEmailRequest) returns (MatchEmailResponse);
+  rpc UpdateMatchStatus (MatchStatusRequest) returns (MatchStatusResponse);
+}
+
+/* ---- Match rider to nearest driver ---- */
+message MatchRequest {
+  string email = 1;
+}
+
+message MatchResponse {
+  string status = 1;
+  string message = 2;
+  string riderEmail = 3;
+  string driverEmail = 4;
+  double distanceKm = 5;
+}
+
+/* ---- Fetch matching information ---- */
+message MatchEmailRequest {
+  string email = 1;
+}
+
+message MatchEmailResponse {
+  string status = 1;
+  string message = 2;
+  string driverEmail = 3;
+  string matchStatus = 4; // "active", "completed", "cancelled"
+}
+
+/* ---- Update match status ---- */
+message MatchStatusRequest {
+  string email = 1;
+  string status = 2; // active | completed | cancelled
+}
+
+message MatchStatusResponse {
+  string status = 1;
+  string message = 2;
+}
