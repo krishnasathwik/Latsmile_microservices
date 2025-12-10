@@ -27,7 +27,7 @@ let drivers = {}; // { email: {routeIndex, latitude, longitude, route[] } }
 const BASE = "http://localhost:4004/api/location";
 
 // Movement step (approx 25 meters)
-const STEP = 0.00025;
+const STEP = 0.0025;
 
 function moveTowards(current, target) {
   const dx = target.latitude - current.latitude;

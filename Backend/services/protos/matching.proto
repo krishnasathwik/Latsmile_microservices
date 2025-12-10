@@ -6,6 +6,9 @@ service MatchingService {
   rpc MatchRider (MatchRequest) returns (MatchResponse);
   rpc GetMatchByEmail (MatchEmailRequest) returns (MatchEmailResponse);
   rpc UpdateMatchStatus (MatchStatusRequest) returns (MatchStatusResponse);
+
+  // ⭐ NEW: get the active match for a given driver (1 active rider per driver)
+  rpc GetActiveMatchByDriverEmail (DriverEmailRequest) returns (MatchDriverResponse);
 }
 
 /* ---- Match rider to nearest driver ---- */
@@ -21,7 +24,7 @@ message MatchResponse {
   double distanceKm = 5;
 }
 
-/* ---- Fetch matching information ---- */
+/* ---- Fetch matching information by rider ---- */
 message MatchEmailRequest {
   string email = 1;
 }
@@ -35,11 +38,23 @@ message MatchEmailResponse {
 
 /* ---- Update match status ---- */
 message MatchStatusRequest {
-  string email = 1;
+  string email = 1;  // rider email
   string status = 2; // active | completed | cancelled
 }
 
 message MatchStatusResponse {
   string status = 1;
   string message = 2;
+}
+
+/* ---- NEW: Fetch active match by driver email ---- */
+message DriverEmailRequest {
+  string email = 1; // driver email
+}
+
+message MatchDriverResponse {
+  string status = 1;       // "success" | "error"
+  string message = 2;
+  string riderEmail = 3;   // "" if no active match
+  string matchStatus = 4;  // "active" or ""
 }

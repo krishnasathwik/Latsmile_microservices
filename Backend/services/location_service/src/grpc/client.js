@@ -6,11 +6,37 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const PROTO_PATH = path.resolve(__dirname, "../../../protos/location.proto");
+function loadProto(protoName) {
+  const PROTO_PATH = path.resolve(__dirname, `../../../protos/${protoName}.proto`);
+  const pkgDef = protoLoader.loadSync(PROTO_PATH);
+  return grpc.loadPackageDefinition(pkgDef);
+}
 
-const packageDef = protoLoader.loadSync(PROTO_PATH);
-const locationProto = grpc.loadPackageDefinition(packageDef).location;
+// Load all needed protos
+const riderProto = loadProto("rider").rider;
+const driverProto = loadProto("driver").driver;
+const matchingProto = loadProto("matching").matching;
+const locationProto = loadProto("location").location;
 
+// 🚗 Rider service
+export const riderClient = new riderProto.RiderService(
+  "localhost:50054",
+  grpc.credentials.createInsecure()
+);
+
+// 🚙 Driver service
+export const driverClient = new driverProto.DriverService(
+  "localhost:50053",
+  grpc.credentials.createInsecure()
+);
+
+// 🔗 Matching service
+export const matchingClient = new matchingProto.MatchingService(
+  "localhost:50056",
+  grpc.credentials.createInsecure()
+);
+
+// 📍 Location service (this service)
 export const locationClient = new locationProto.LocationService(
   "localhost:50055",
   grpc.credentials.createInsecure()
