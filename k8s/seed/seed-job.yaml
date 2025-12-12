@@ -1,0 +1,16 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: station-db-seeder
+  namespace: lastmile
+spec:
+  backoffLimit: 1
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: station-seeder
+          image: sathwik049/station-seeder:latest
+          env:
+            - name: MONGO_URI
+              value: "mongodb://mongodb.lastmile.svc.cluster.local:27017/lastmile_db"

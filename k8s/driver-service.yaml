@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: driver-service
+  namespace: lastmile
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: driver-service
+  template:
+    metadata:
+      labels:
+        app: driver-service
+    spec:
+      containers:
+        - name: driver-service
+          image: sathwik049/lastmile-driver_service:latest
+          env:
+            - name: PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: lastmile-config
+                  key: DRIVER_PORT
+            - name: GRPC_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: lastmile-config
+                  key: DRIVER_GRPC_PORT
+            - name: MONGO_URI
+              value: "mongodb://mongodb.lastmile.svc.cluster.local:27017/lastmile_db"
+          ports:
+            - containerPort: 3002     # HTTP server
+            - containerPort: 50053    # FIXED! Driver gRPC port
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: driver-service
+  namespace: lastmile
+spec:
+  selector:
+    app: driver-service
+  ports:
+    - name: http
+      port: 3002
+      targetPort: 3002
+    - name: grpc
+      port: 50053   # FIXED! must match actual gRPC port
+      targetPort: 50053

@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: matching-service
+  namespace: lastmile
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: matching-service
+  template:
+    metadata:
+      labels:
+        app: matching-service
+    spec:
+      containers:
+        - name: matching-service
+          image: sathwik049/lastmile-matching_service:latest
+          env:
+            - name: MONGO_URI
+              value: "mongodb://mongodb.lastmile.svc.cluster.local:27017/lastmile_db"
+            - name: EMAIL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: lastmile-secrets
+                  key: EMAIL_USER
+            - name: EMAIL_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: lastmile-secrets
+                  key: EMAIL_PASS
+          ports:
+            - containerPort: 3005     # HTTP PORT
+            - containerPort: 50056    # GRPC PORT (MUST EXPOSE THIS)
+apiVersion: v1
+kind: Service
+metadata:
+  name: matching-service
+  namespace: lastmile
+spec:
+  selector:
+    app: matching-service
+  ports:
+    - name: http
+      port: 3005
+      targetPort: 3005
+    - name: grpc
+      port: 50056
+      targetPort: 50056

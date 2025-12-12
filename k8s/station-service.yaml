@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: station-service
+  namespace: lastmile
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: station-service
+  template:
+    metadata:
+      labels:
+        app: station-service
+    spec:
+      containers:
+        - name: station-service
+          image: sathwik049/lastmile-station_service:latest
+          env:
+            - name: PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: lastmile-config
+                  key: STATION_PORT
+            - name: MONGO_URI
+              value: "mongodb://mongodb.lastmile.svc.cluster.local:27017/lastmile_db"
+          ports:
+            - containerPort: 5002   # HTTP
+            - containerPort: 50052  # gRPC  <-- ADDED
+apiVersion: v1
+kind: Service
+metadata:
+  name: station-service
+  namespace: lastmile
+spec:
+  selector:
+    app: station-service
+  ports:
+    - name: http
+      port: 5002
+      targetPort: 5002
+    - name: grpc
+      port: 50052
+      targetPort: 50052   # <-- ADDED
